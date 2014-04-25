@@ -1,19 +1,11 @@
-YUICOMPRESSOR=yuicompressor.sh
-LESSC=lessc.sh
+MINIFIER=$(shell which yuicompressor || which yuicompressor.sh || which uglifyjs )
 
 all: jquery.autoexpandable.min.js
 
 rebuild: clean all
 
-%.css: %.less
-	$(LESSC) $< > $@
-
-%.min.css: %.css
-	$(YUICOMPRESSOR) $< > $@
-
 %.min.js: %.js
-	$(YUICOMPRESSOR) $< > $@
+	$(MINIFIER) $< > $@
 
 clean:
-	-rm -f *.{min.js,css}
-
+	-rm -f *.min.js
