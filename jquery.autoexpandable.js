@@ -38,10 +38,31 @@
         minHeight: undefined,
         // Number of lines to pad after entered text.
         paddingBottomLines: 2,
+        // Duration of transition between textareas' heights
+        transitionDuration: '0.1s',
         // Does nothing so far.
         debug: false
     };
 
+    var TRANSITION_PREFIXES = ['', '-webkit-', '-moz-'];
+    var transitionDurationProperty;
+
+    function getTransitionDurationProperty ($element)
+    {
+        var idx;
+        if (undefined === transitionDurationProperty)
+        {
+            for (idx in TRANSITION_PREFIXES)
+            {
+                transitionDurationProperty = TRANSITION_PREFIXES[idx] + 'transition-duration';
+                if (undefined !== $element.css(transitionDurationProperty))
+                {
+                    break;
+                }
+            }
+        }
+        return transitionDurationProperty;
+    }
 
     // == {{{autoexpandable}}} ==
     // function called with {{{$(selector).autoexpandable()}}},
@@ -102,17 +123,29 @@
                         $foo.remove();
                     }
 
-                    var padding = data.paddingBottom;
-                    $this
-                        .height(0) // to get proper scrollHeight
-                        .height(
-                            Math.max(
-                                settings.minHeight,
-                                $this[0].scrollHeight
-                                +
-                                padding * settings.paddingBottomLines
-                            )
-                        );
+                    var padding = data.paddingBottom,
+                        transitionDurationProperty = getTransitionDurationProperty($this),
+                        transitionDuration = $this.css(transitionDurationProperty),
+                        oldHeight,
+                        height;
+
+                    if ('0s' !== transitionDuration)
+                    {
+                        // disable transitions so that setting height(0)
+                        // allows to read scrollHeight immediatelly
+                        $this.css(transitionDurationProperty, '0s');
+                    }
+
+                    oldHeight = $this.height();
+                    $this.height(0); // to get proper scrollHeight
+                    height = $this[0].scrollHeight;
+                    height += padding * settings.paddingBottomLines;
+                    $this.height( oldHeight );
+                    $this[0].scrollHeight; // recalculate layout
+
+                    $this.css(transitionDurationProperty, settings.transitionDuration);
+                    $this.height(Math.max(settings.minHeight, height));
+                    $this.css(transitionDurationProperty, transitionDuration);
 
                 }, settings.timeout); // setTimeout
 
