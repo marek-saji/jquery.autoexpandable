@@ -136,13 +136,19 @@
                         $this.css(transitionDurationProperty, '0s');
                     }
 
-                    oldHeight = $this.height();
-                    $this.height(0); // to get proper scrollHeight
-                    height = $this[0].scrollHeight;
-                    height += padding * settings.paddingBottomLines;
-                    $this.height( oldHeight );
-                    $this[0].scrollHeight; // recalculate layout
-
+                    if ('' === $this.val())
+                    {
+                        height = padding;
+                    }
+                    else
+                    {
+                        oldHeight = $this.height();
+                        $this.height(0); // to get proper scrollHeight
+                        height = $this[0].scrollHeight;
+                        height += padding * settings.paddingBottomLines;
+                        $this.height( oldHeight );
+                        $this[0].scrollHeight; // recalculate layout
+                    }
                     $this.css(transitionDurationProperty, settings.transitionDuration);
                     $this.height(Math.max(settings.minHeight, height));
                     $this.css(transitionDurationProperty, transitionDuration);
