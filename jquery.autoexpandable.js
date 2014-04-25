@@ -85,7 +85,7 @@
             // merge-in settings specified in `data-autoexpandable` attribute
             $.extend(settings, invoke_settings, data);
 
-            $this.bind('keypress.autoexpandable', function(e){
+            $this.bind('keypress.autoexpandable keyup.autoexpandable', function(e){
 
                 var $this = $(this),
                     data = $this.data('autoexpandable');
