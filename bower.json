@@ -1,0 +1,31 @@
+{
+  "name": "jquery.autoexpandable",
+  "main": "jquery.autoexpandable.js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/marek-saji/jquery.autoexpandable",
+  "authors": [
+    "Marek 'saji' Augustynowicz <marek.aug@gmail.com>"
+  ],
+  "description": "Auto-expandable textarea (growing to user content) jQuery plugin",
+  "keywords": [
+    "jquery",
+    "textarea",
+    "height",
+    "fit",
+    "adjust",
+    "grow",
+    "shrink",
+    "expand"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": ">= 1.0.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
