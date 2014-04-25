@@ -35,7 +35,7 @@
         // Timeout after which height is measured and applied to textarea.
         timeout: 200,
         // Height below which textarea will not shrink.
-        minHeight: null,
+        minHeight: undefined,
         // Number of lines to pad after entered text.
         paddingBottomLines: 2,
         // Does nothing so far.
@@ -78,7 +78,7 @@
 
                     data.timeoutID = null;
 
-                    if (!settings.minHeight)
+                    if (settings.minHeight === undefined)
                     {
                         settings.minHeight = $this.height();
                     }
@@ -106,9 +106,12 @@
                     $this
                         .height(0) // to get proper scrollHeight
                         .height(
-                            $this[0].scrollHeight
-                            +
-                            padding * settings.paddingBottomLines
+                            Math.max(
+                                settings.minHeight,
+                                $this[0].scrollHeight
+                                +
+                                padding * settings.paddingBottomLines
+                            )
                         );
 
                 }, settings.timeout); // setTimeout
