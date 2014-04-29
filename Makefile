@@ -1,4 +1,4 @@
-MINIFIER=$(shell which yuicompressor || which yuicompressor.sh || which uglifyjs )
+MINIFIER=$(shell which uglifyjs || which yuicompressor || which yuicompressor.sh )
 
 all: jquery.autoexpandable.min.js
 
