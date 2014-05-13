@@ -1,7 +1,7 @@
 {
   "name": "jquery.autoexpandable",
   "main": "jquery.autoexpandable.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/marek-saji/jquery.autoexpandable",
   "authors": [
     "Marek 'saji' Augustynowicz <marek.aug@gmail.com>"
